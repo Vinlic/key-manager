@@ -3,9 +3,6 @@ const url = require("url");
 const cryptoJS = require("crypto-js");
 const fs = require("fs");
 
-//服务端口
-const port = 3628;
-
 //加密后的密钥
 const keys = {};
 
@@ -18,6 +15,8 @@ const config = require('./config.json');
 //随机密码生成器
 const createPwd = (len) => {
     try {
+        if(config.debug)
+            return 'KEYSMANAGERDEBUG';
         let randomStr = '';
         let material = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz';
         for(let i = 0;i < len;i++) {
@@ -33,8 +32,8 @@ const createPwd = (len) => {
 console.log('\n key manager v1.0.0\n');
 
 //读取证书
-for(const key in config) {
-    rawKeys[key] = fs.readFileSync(`./keys/${config[key]}`, 'utf-8');
+for(const key in config.keys) {
+    rawKeys[key] = fs.readFileSync(`./keys/${config.keys[key]}`, 'utf-8');
     if(!rawKeys[key])
         console.log(` ${key} key not found`);
     else
@@ -82,13 +81,13 @@ http.createServer((req, res) => {
         }
         retuenData[name] = keys[name];
     }
-    res.end(JSON.stringify({status: "successfully", data: retuenData}));
+    res.end(JSON.stringify({status: "successfully", code: '0', data: retuenData}));
     //重新加密密钥
     pwd = createPwd(16);
     encryptKeys(pwd);
     console.log('\n key manager reset successfully')
     console.log(`\n auth code: [${pwd}]\n`);
-}).listen(port);
+}).listen(config.port);
 
-console.log(`\n key manager start successfully\n port number to listen on ${port}`);
+console.log(`\n key manager start successfully\n port number to listen on ${config.port}`);
 console.log(`\n auth code: [${pwd}]\n`);

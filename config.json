@@ -1,4 +1,8 @@
 {
-    "qxz_private": "qxz_api_private_key",
-    "qxz_public": "qxz_api_public_key"
+    "port": 3628,
+    "debug": true,
+    "keys": {
+        "qxz_api_private": "qxz_api_private_key",
+        "qxz_api_public": "qxz_api_public_key"
+    }
 }
