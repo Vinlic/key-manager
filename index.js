@@ -31,6 +31,10 @@ const createPwd = (len) => {
 
 console.log('\n key manager v1.0.0\n');
 
+//如果没有keys目录则创建
+if(!fs.existsSync('./keys'))
+    fs.mkdirSync('./keys');
+
 //读取证书
 for(const key in config.keys) {
     rawKeys[key] = fs.readFileSync(`./keys/${config.keys[key]}`, 'utf-8');

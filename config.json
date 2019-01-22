@@ -2,7 +2,9 @@
     "port": 3628,
     "debug": true,
     "keys": {
-        "qxz_api_private": "qxz_api_private_key",
-        "qxz_api_public": "qxz_api_public_key"
+        "qxz_api_rsa_private": "qxz_api_rsa_private_key",
+        "qxz_api_rsa_public": "qxz_api_rsa_public_key",
+        "qxz_api_aes": "qxz_api_aes_key",
+        "qxz_data_aes": "qxz_data_aes_key"
     }
 }
